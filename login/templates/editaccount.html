@@ -1,0 +1,187 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Actualizar Cuenta</title>
+  <link rel="shortcut icon" type="image/png" href="{% static 'images/unam-ico.png' %}">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/signup.css' %}">
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+</head>
+<body class="img js-fullheight" style="background-image: url('{% static "images/unam.jpg"%}')";>
+	<!--class="h-100 h-custom gradient-custom-2"-->
+	<form method="post">
+	{% csrf_token %}
+	<section >
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-12">
+        <div class="card card-registration card-registration-2" style="border-radius: 15px;">
+          <div class="card-body p-0">
+            <div class="row g-0">
+              <div class="col-lg-6 bg-xd text-white">
+                <div class="p-5">
+                  <h3 class="fw-normal mb-5">Actualizar</h3>
+
+				  <div class="row">
+                    <div class="mb-4 pb-2">
+
+                      <div class="form-outline">
+                        <input type="text" name="first_name" id="first_name" required class="form-control form-control-lg" placeholder="Nombre(s)" value="{{ user.first_name }}"/>
+                      </div>
+
+                    </div>
+                  </div>
+
+				  <div class="row">
+                    <div class="mb-4 pb-2">
+
+                      <div class="form-outline">
+                        <input type="text" name="last_name" id="last_name" required class="form-control form-control-lg" placeholder="Apellidos" value="{{ user.last_name }}"/>
+                      </div>
+
+                    </div>
+                    
+                  </div>
+
+				  <div class="mb-4 pb-2">
+                    <div class="form-outline">
+                      <input type="email" name="email" id="email" required class="form-control form-control-lg" placeholder="Correo electrónico" value="{{ user.email }}"/>
+                    </div>
+                  </div>
+
+				  <div class="mb-4 pb-2">
+                    <div class="form-outline">
+                      <input type="text" name="username" id="username" required class="form-control form-control-lg" placeholder="Numero de cuenta" value="{{ user.username }}"/>
+                    </div>
+                  </div>
+
+				  <div class="mb-4 pb-2">
+                    <div class="form-outline">
+                      <input type="date" name="fecha_nacimiento" id="fecha_nacimiento" required class="form-control form-control-lg" value="{{ user.fecha_nacimiento|date:'Y-m-d' }}"/>
+					  <label class="form-label">Fecha de nacimiento</label>
+                    </div>
+                  </div>
+
+                  <div class="mb-4 pb-2">
+                    <select disabled name="tipo" id="tipo" required class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+                      <option value="profesor" {% if user.tipo == "profesor" %}selected{% endif %}>Profesor</option>
+                      <option value="estudiante" {% if user.tipo == "estudiante" %}selected{% endif %}>Estudiante</option>
+                      <option value="administrativo" {% if user.tipo == "administrativo" %}selected{% endif %}>Administrativo</option>
+                    </select>
+                  </div>
+
+                  <div class="mb-4 pb-2">
+                    <div class="form-outline">
+                      <input type="text" name="telefono" id="telefono" required class="form-control form-control-lg" placeholder="Telefono" value="{{ user.telefono }}"/>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-6 mb-4 pb-2 mb-md-0 pb-md-0">
+                      <div class="form-outline"> 
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6 bg-indigo text-white">
+                <div class="p-5">
+                  <h3 class="fw-normal mb-5">Datos</h3>
+                  <div class="mb-4 pb-2">
+                    <div class="form-outline form-white">
+                      <input type="text" name="direccion" id="direccion" required class="form-control form-control-lg"  placeholder="Dirección" value="{{ user.direccion }}"/>
+                    </div>
+                  </div>
+				  <div class="mb-4 pb-2">
+                    <select name="estado" id="estado" required class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+                    </select>
+                  </div>
+				  <div class="mb-4 pb-2">
+                    <select name="ciudad" id="ciudad" required class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+                    </select>
+                  </div>
+				  <div class="mb-4 pb-2">
+                    <div class="form-outline form-white">
+                      <input type="text" name="codigo_postal" id="codigo_postal" required class="form-control form-control-lg"  placeholder="Codigo postal" value="{{ user.codigo_postal }}"/>
+                    </div>
+                  </div>
+                  <div class="mb-4 pb-2">
+                    <div class="form-outline form-white">
+                      <input type="text" name="rfc" id="rfc" required class="form-control form-control-lg" placeholder="RFC" value="{{ user.rfc }}"/>
+                    </div>
+                  </div>
+                  <div class="mb-4">
+                    <div class="form-outline form-white">
+                      <input type="password" name="password" id="password" class="form-control form-control-lg" placeholder="Nueva contraseña"/>
+                    </div>
+                  </div>
+				  <div class="row">
+                    <div class="col-md-6 mb-4 pb-2">
+                      <div class="form-outline">
+                        <button type="submit" class="btn btn-light btn-lg"
+                    data-mdb-ripple-color="dark" id="btn_signup">Actualizar</button>
+                      </div>
+                    </div>
+                    <div class="col-md-6 mb-4 pb-2">
+                      <div class="form-outline">
+                        <a href="{% url 'dashboard' %}" class="link-success">Cancelar</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</form>
+</body>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    var estadouser = "{{ user.estado }}";
+    var cityuser = "{{ user.ciudad }}";
+    
+    $.getJSON("https://raw.githubusercontent.com/martinciscap/json-estados-municipios-mexico/master/estados-municipios.json", function(data) {
+        var options = "";
+        $.each(data, function(key, value) {
+          options += "<option value='" + key + "'>" + key + "</option>";
+        });
+        $("#estado").html(options);
+        $("#estado").val(estadouser);
+        
+        var selectedState = $("#estado").val();
+        var options = "";
+        if (selectedState !== "") {
+            var municipalities = data[selectedState];
+            $.each(municipalities, function(key, value) {
+              options += "<option value='" + value + "'>" + value + "</option>";
+            });
+        }
+        $("#ciudad").html(options);
+        $("#ciudad").val(cityuser);
+        
+        $("#estado").change(function() {
+            var selectedState = $(this).val();
+            var options = "";
+            if (selectedState !== "") {
+                var municipalities = data[selectedState];
+                $.each(municipalities, function(key, value) {
+                  options += "<option value='" + value + "'>" + value + "</option>";
+                });
+            }
+            $("#ciudad").html(options);
+        });
+    });
+});
+
+</script>
+</html>

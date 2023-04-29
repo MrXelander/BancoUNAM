@@ -1,0 +1,126 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Cuentas</title>
+  <link rel="shortcut icon" type="image/png" href="{% static 'images/unam-ico.png' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+  <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+  <link rel="stylesheet" type="text/css" href="https://unpkg.com/@phosphor-icons/web@2.0.3/src/bold/style.css"/>
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <link rel="stylesheet" href="{% static 'alertifyjs/css/alertify.min.css' %}" />
+  <link rel="stylesheet" href="{% static 'alertifyjs/css/themes/default.min.css' %}" />
+  <script src="{% static 'alertifyjs/alertify.min.js' %}"></script>
+</head>
+<body class="img js-fullheight" style="background-image: url('{% static "images/unam.jpg"%}')";>
+<!-- partial:index.partial.html -->
+<div class="app">
+	<header class="app-header">
+		<div class="app-header-logo">
+			<div class="logo">
+				<span class="logo-icon">
+					<img src="{% static 'images/unam-ico.png' %}" />
+				</span>
+				<h1 class="logo-title">
+					<span>UNAM</span>
+					<span>Banco</span>
+				</h1>
+			</div>
+		</div>
+		<div class="app-header-navigation">
+			<div class="tabs">
+				<a href="#" class="active">
+					General
+				</a>
+			</div>
+		</div>
+		<div class="app-header-actions">
+			<a class="user-profile" href="{% url 'edit' %}" style="text-decoration:none">
+				<span>{{ username }}</span>
+				<span>
+					<img src="{% static 'images/user.png' %}" />
+				</span>
+			</a>
+		</div>
+		<div class="app-header-mobile" href="{% url 'edit' %}" style="text-decoration:none">
+			<a class="user-profile" href="{% url 'edit' %}" style="text-decoration:none">
+				<span>{{ username }}</span>
+				<span>
+					<img src="{% static 'images/user.png' %}" />
+				</span>
+			</a>
+		</div>
+
+	</header>
+	<div class="app-body">
+		<div class="app-body-navigation">
+			<nav class="navigation">
+				<a href="{% url 'dashboard' %}">
+					<i class="ph ph-gauge"></i>
+					<span>Panel principal</span>
+				</a>
+				<a href="{% url 'deposits' %}">
+					<i class="ph ph-piggy-bank"></i>
+					<span>Depositos</span>
+				</a>
+				<a href="{% url 'transfers' %}">
+					<i class="ph ph-swap"></i>
+					<span>Transferencias</span>
+				</a>
+				<a href="{% url 'cuentas' %}">
+					<i class="ph ph-credit-card"></i>
+					<span>Cuentas</span>
+				</a>
+				<a href="{% url 'movements' %}">
+					<i class="ph ph-clock-counter-clockwise"></i>
+					<span>Movimientos</span>
+				</a>
+				<a href="{% url 'loan' %}">
+					<i class="ph ph-money"></i>
+					<span>Prestamos</span>
+				</a>
+				<a href="{% url 'logout' %}">
+					<i class="ph ph-sign-out"></i>
+					<span>Cerrar sesión</span>
+				</a>
+			</nav>
+			<footer class="footer">
+				<h1>UNAM<small>©</small></h1>
+				<div>
+					UNAM ©<br />
+					Todos los derechos reservados 2023
+				</div>
+			</footer>
+		</div>
+		<div class="app-body-main-content">
+			<section class="payment-section">
+				<div class="payments">
+					<h2>Cuenta: {{ cuenta_bancaria.numero_de_cuenta|slice:"0:4" }} {{ cuenta_bancaria.numero_de_cuenta|slice:"4:8" }} {{ cuenta_bancaria.numero_de_cuenta|slice:"8:12" }} {{ cuenta_bancaria.numero_de_cuenta|slice:"12:16" }}</h2>
+					<p>Fecha de expiracion: {{ cuenta_bancaria.fecha_de_expiracion|date:"m/y" }}</p>
+					<p>Fecha de apertura: {{ fecha_de_apertura }}</p>
+					<p>Tipo de cuenta: {{ cuenta_bancaria.tipo_de_cuenta }}</p>
+					<p>Saldo: ${{ cuenta_bancaria.saldo }}</p>
+					<form method="post">
+						{% csrf_token %}
+						<div>
+							<br/>
+							<button class="flat-button" type="submit">Eliminar cuenta</button>
+						</div>
+					</form>
+				</div>
+			</section>
+		</div>
+		<div class="app-body-sidebar">
+		</div>
+	</div>
+</div>
+</body>
+</html>
+{% if messages %}
+    <script>
+        {% for message in messages %}
+            alertify.{{ message.tags }}('{{ message }}');
+        {% endfor %}
+    </script>
+{% endif %}
